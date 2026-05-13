@@ -1,0 +1,21 @@
+{
+  "_comment": "Ka-ching! 訂閱者設定範本。複製此檔案為 subscribers.json 並填入實際資料。subscribers.json 已被 git ignore。",
+  "subscribers": [
+    {
+      "name": "我自己",
+      "user_id": "Uxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "stocks": ["AAPL", "NVDA", "TSLA"],
+      "skill": "aggressive",
+      "timezone": "Asia/Taipei",
+      "active": true
+    },
+    {
+      "name": "範例：保守型訂閱者",
+      "user_id": "Uyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+      "stocks": ["VOO", "QQQ", "BRK.B"],
+      "skill": "conservative",
+      "timezone": "Asia/Taipei",
+      "active": false
+    }
+  ]
+}
