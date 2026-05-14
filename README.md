@@ -68,7 +68,7 @@
 
 ```bash
 # 1. Clone 專案
-git clone https://github.com/yourname/kaching.git
+git clone https://github.com/HansJCTsai/kaching.git
 cd kaching
 
 # 2. 安裝依賴
