@@ -11,7 +11,7 @@
 phase: 1 — MVP
 week: 1 / 12
 day: 1 / 60
-last_updated: 2026-04-27
+last_updated: 2026-05-16
 ```
 
 ---
@@ -62,11 +62,11 @@ Phase 2+  → MVP 上線後再規劃
 - [x] 建立 GitHub repo
 - [x] 初始 commit
 - [x] LICENSE / .gitignore / .env.example
-- [ ] 加 GitHub Topics 標籤
-- [ ] About 區塊填寫
-- [ ] 取得 Anthropic API Key（Phase 1 前需要）
-- [ ] 取得 Gemini API Key（Phase 1 前需要）
-- [ ] 申請 Line Developer 帳號（Phase 1 前需要）
+- [X] 加 GitHub Topics 標籤
+- [X] About 區塊填寫
+- [X] 取得 Anthropic API Key（Phase 1 前需要）
+- [X] 取得 Gemini API Key（Phase 1 前需要）
+- [X] 申請 Line Developer 帳號（Phase 1 前需要）
 
 ---
 
@@ -582,6 +582,6 @@ job_applications:
 
 ---
 
-*Last updated: 2026-04-27*
+*Last updated: 2026-05-16*
 *Built with Harness Engineering · 模型可換，Harness 不變*
 *錢錢來了哦 💰*
