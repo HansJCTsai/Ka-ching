@@ -60,7 +60,7 @@ external_apis:
 
 ## 📁 Project Structure
 
-```
+```text
 kaching/
 ├── .github/workflows/daily_kaching.yml
 ├── agent/                      # Core logic (no prompt strings allowed)
@@ -81,6 +81,13 @@ kaching/
 ├── tools/
 │   └── flex_formatter.py       # Line Flex Message formatter
 ├── tests/
+├── evals/                      # Eval framework (Phase 1.5)
+│   ├── test_cases.json
+│   └── judges/                 # LLM-as-judge skill files
+├── docs/
+│   ├── ADR/                    # Architecture Decision Records
+│   └── learning-notes/         # Weekly learning notes
+├── scripts/                    # One-off utility scripts
 ├── plans/roadmap.md
 ├── subscribers.json            # ⚠️ git ignored
 ├── subscribers.example.json
@@ -155,6 +162,17 @@ def analyze_for_subscriber(subscriber: dict, raw_data: dict) -> str: ...
 # Forbidden: hardcoded prompt strings
 # Required: all prompts loaded from skills/{name}.md
 # Pass criterion: grep the entire analyzer.py — no string literals longer than 50 chars
+```
+
+### `agent/tracer.py`
+
+```python
+def trace_llm_call(model: str, prompt_tokens: int, completion_tokens: int, latency_ms: float) -> None: ...
+def get_cost_estimate(model: str, prompt_tokens: int, completion_tokens: int) -> float: ...
+
+# Wraps LLM calls via decorator without touching business logic
+# Forbidden: modifying analyzer.py core logic
+# Pass criterion: removing tracer leaves analyzer fully functional
 ```
 
 ### `agent/notifier.py`
@@ -255,7 +273,7 @@ Each `skills/*.md` file must contain these four sections:
 
 All secrets **must** be read from environment variables — **never** hardcoded.
 
-```
+```env
 ANTHROPIC_API_KEY=sk-ant-...
 GEMINI_API_KEY=...
 LINE_CHANNEL_ACCESS_TOKEN=...
@@ -272,7 +290,7 @@ GitHub Actions injects via Repository Secrets. Local development uses `.env` (gi
 The agent **must stop and confirm with the user** in the following situations:
 
 | Situation | Reason |
-|---|---|
+| --- | --- |
 | Modifying any `agent/` module by more than 30 lines | May break Harness boundaries |
 | Adding string literals longer than 50 chars in Python (especially prompts) | Violates prompt-code separation |
 | Introducing new dependencies (especially langchain / langgraph / haystack) | Violates "no framework" design decision |
@@ -303,7 +321,7 @@ After completing any change, the agent must self-verify the following:
 
 When receiving a new requirement, ask yourself in order:
 
-```
+```text
 1. Can this be solved by adjusting subscribers.json?
    YES → Change JSON config, no code changes
    NO ↓
@@ -327,7 +345,7 @@ When receiving a new requirement, ask yourself in order:
 Use conventional commits with these prefixes:
 
 | Prefix | Use |
-|---|---|
+| --- | --- |
 | `feat(agent):` | New feature in `agent/` core |
 | `feat(interface):` | New interface layer |
 | `skill(name):` | Modifying a skill |
@@ -335,6 +353,7 @@ Use conventional commits with these prefixes:
 | `test:` | Adding tests |
 | `chore:` | Environment/dependencies/config |
 | `docs:` | Documentation (excluding this AGENTS.md) |
+| `eval:` | Adding or modifying eval cases / judges |
 | `arch:` | Architecture decision change (**ADR required**) |
 
 ---
@@ -342,10 +361,11 @@ Use conventional commits with these prefixes:
 ## 🧪 Testing Strategy
 
 | Module | Test Type | Focus |
-|---|---|---|
+| --- | --- | --- |
 | `fetcher.py` | mock external API | parsing errors, empty data, rate limits |
 | `analyzer.py` | mock LLM SDK | skill loading, prompt assembly, response parsing |
 | `notifier.py` | mock Line API | push failure retry, batch logic |
+| `tracer.py` | unit test | decorator non-invasive, token calculation correct |
 | `interfaces/` | integration test | end-to-end with mocked externals |
 
 **Forbidden**: calling real LLM APIs or Line API in CI.
@@ -360,6 +380,10 @@ Current Phase is determined by `plans/roadmap.md`. Work boundaries per Phase:
 phase_1_mvp:
   scope: [fetcher, analyzer, notifier, scheduler, 3 skills]
   out_of_scope: [CLI, Web, alerts, multi-channel]
+
+phase_1_5_career:
+  scope: [evals/, tracer.py, 2 articles, job applications]
+  out_of_scope: [new user-facing features]
 
 phase_2_extension:
   scope: [alert.py, multi-subscribe via Bot]
@@ -384,10 +408,10 @@ Work outside the current Phase scope **must** be confirmed before proceeding.
 
 ## 🔗 References
 
-- AGENTS.md spec: https://agents.md/
-- Harness Engineering: https://github.com/NousResearch/hermes-agent
-- Anthropic Skills standard: https://agentskills.io
-- Line Messaging API: https://developers.line.biz/en/docs/messaging-api/
+- [AGENTS.md spec](https://agents.md/)
+- [Harness Engineering](https://github.com/NousResearch/hermes-agent)
+- [Anthropic Skills standard](https://agentskills.io)
+- [Line Messaging API](https://developers.line.biz/en/docs/messaging-api/)
 
 ---
 
