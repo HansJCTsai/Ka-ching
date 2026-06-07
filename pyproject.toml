@@ -1,0 +1,17 @@
+[project]
+name = "ka-ching"
+version = "0.1.0"
+requires-python = ">=3.13"
+dependencies = [
+    "deepagents>=0.6.8",
+    "langchain-anthropic>=1.4.4",
+    "langchain-google-genai>=4.2.4",
+    "langsmith>=0.8.9",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0.3",
+    "pytest-mock>=3.15.1",
+    "ruff>=0.15.16",
+]
