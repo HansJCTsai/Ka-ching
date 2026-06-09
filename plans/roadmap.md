@@ -10,8 +10,8 @@
 ```yaml
 phase: 1 — MVP (v1)
 week: 1 / 28
-day: 1 / 140
-last_updated: 2026-06-07
+day: 2 / 140
+last_updated: 2026-06-09
 
 versions:
   v1: Line Bot 推播        → Day 1-60   （12 週）✅ 進行中
@@ -113,20 +113,20 @@ v3：Python sidecar → Agent + LangGraph → Tauri + React
 > **本週目標：** fetcher.py 完成，能抓股價與新聞
 
 ### Day 1 — uv 與專案骨架（⏱ 1h）
-- [ ] 在本地 clone repo
-- [ ] 安裝 uv：`curl -LsSf https://astral.sh/uv/install.sh | sh`
-- [ ] `uv init` 初始化專案
-- [ ] `uv add langchain-anthropic langchain-google-genai deepagents langsmith`
-- [ ] `uv add --dev pytest pytest-mock ruff`
-- [ ] 建立資料夾骨架（`agent/`、`interfaces/`、`skills/`、`tools/`、`evals/`）
-- [ ] 寫各模組的 `__init__.py`
-- [ ] commit：`chore: setup uv and project scaffold`
+- [X] 在本地 clone repo
+- [X] 安裝 uv：`curl -LsSf https://astral.sh/uv/install.sh | sh`
+- [X] `uv init` 初始化專案
+- [X] `uv add langchain-anthropic langchain-google-genai deepagents langsmith`
+- [X] `uv add --dev pytest pytest-mock ruff`
+- [X] 建立資料夾骨架（`agent/`、`interfaces/`、`skills/`、`tools/`、`evals/`）
+- [X] 寫各模組的 `__init__.py`
+- [X] commit：`chore: setup uv and project scaffold`
 
-### Day 2 — yfinance REPL 探索（⏱ 1h）
-- [ ] `uv add yfinance` 並進入 REPL：`uv run python`
-- [ ] `yf.Ticker("AAPL").history(period="2d")` 看回傳結構
-- [ ] 記錄你看到什麼欄位（成交量、開盤、收盤⋯）
-- [ ] 不寫程式，純探索
+### Day 2 — yfinance REPL 探索（⏱ 1h）✅
+- [X] `uv add yfinance` 並進入 REPL：`uv run python`
+- [X] `yf.Ticker("AAPL").history(period="2d")` 看回傳結構
+- [X] 記錄你看到什麼欄位（成交量、開盤、收盤⋯）
+- [X] 不寫程式，純探索
 
 ### Day 3 — fetcher.py 第一版（⏱ 1h）
 - [ ] 寫 `get_stock_data(symbols)` 函式
@@ -1024,7 +1024,7 @@ result = await run_portfolio_analysis(
 v1_phase1_mvp:
   days: "1-40"
   total: 40
-  completed: 0
+  completed: 2
   in_progress: 1
 
 v1_phase1_5_career:
@@ -1168,7 +1168,7 @@ LangSmith 記錄完整的 Agent 決策過程。
 
 ---
 
-*Last updated: 2026-06-07*
+*Last updated: 2026-06-09*
 *Built with Harness Engineering · 模型可換，Harness 不變*
 *v1 Line Bot → v2 手機 App → v3 桌面工作站*
 *Agent 框架：deepagents + LangGraph · 觀測：LangSmith · 套件管理：uv*
